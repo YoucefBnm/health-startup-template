@@ -11,6 +11,9 @@ import {
   CloseAnimatedMenu,
 } from "../systaliko-ui/blocks/animated-menu";
 import { Variants } from "motion";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useToggleOnScroll } from "@/hooks/use-toggle-onscroll";
+import { motion } from "motion/react";
 
 const nav_links = [
   {
@@ -90,74 +93,109 @@ const menuItemVariants = {
   }),
 } as Variants;
 
-export function Header() {
+const HeaderLogo = ({
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  return <Link href={"/"} {...props} />;
+};
+
+const NavMobile = () => {
   return (
-    <header className=" flex items-center justify-between px-16 h-16 fixed z-999 top-0 left-0 w-full">
-      <Link href={"/"}>
-        <Logo className="w-20" />
-      </Link>
-      <AnimatedMenu className="relative">
-        <AnimatedMenuButton className="w-24 h-10 font-medium">
-          <AnimatedMenuButtonToggleIcon />
-          <AnimatedMenuButtonLabel />
-        </AnimatedMenuButton>
-        <AnimatedMenuList
-          layout
-          variants={menuListvariants}
-          className="absolute right-0 top-0 bg-background/80 backdrop-blur border border-border/10 shadow rounded-3xl"
-        >
-          <div className="flex flex-col px-6 justify-evenly gap-6 items-start size-full">
-            <div className="flex flex-col items-start gap-2 *:transition-opacity *:duration-200 [&:hover>*]:blur-[2px] [&>*:hover]:blur-none">
-              {nav_links.map((navLink, i) => (
-                <div className="overflow-hidden" key={navLink.id}>
-                  <AnimatedMenuItem
-                    className="perspective-dramatic perspective-origin-bottom"
-                    variants={menuItemVariants}
-                    order={i}
-                  >
-                    <CloseAnimatedMenu>
-                      <Link
-                        className="text-2xl font-medium p-2"
-                        href={navLink.href}
-                        title={navLink.label}
-                        aria-label={`navigate to ${navLink.label}`}
-                      >
-                        {navLink.label}
-                      </Link>
-                    </CloseAnimatedMenu>
-                  </AnimatedMenuItem>
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-3 *:transition-blur *:duration-200 [&:hover>*]:blur-[2px] [&>*:hover]:blur-none">
-              {nav_socials.map((navSocial, i) => (
-                <div
-                  className="overflow-hidden text-primary"
-                  key={navSocial.id}
+    <AnimatedMenu className="self-center relative">
+      <AnimatedMenuButton className="w-24 h-10 text-secondary-foreground font-medium">
+        <AnimatedMenuButtonToggleIcon className="*:h-[1.5px] *:origin-[17.5%]" />
+        <AnimatedMenuButtonLabel />
+      </AnimatedMenuButton>
+      <AnimatedMenuList
+        layout
+        variants={menuListvariants}
+        className="absolute right-0 top-0 bg-secondary/70 backdrop-blur border border-border/10 shadow rounded-3xl"
+      >
+        <div className="flex flex-col px-6 justify-evenly gap-6 items-start size-full">
+          <div className="flex flex-col items-start gap-4 *:transition-opacity *:duration-200 [&:hover>*]:blur-[2px] [&>*:hover]:blur-none">
+            {nav_links.map((navLink, i) => (
+              <div className="overflow-hidden" key={navLink.id}>
+                <AnimatedMenuItem
+                  className="perspective-dramatic perspective-origin-bottom"
+                  variants={menuItemVariants}
+                  order={i}
                 >
-                  <AnimatedMenuItem
-                    order={i + nav_links.length}
-                    variants={menuItemVariants}
-                  >
-                    <CloseAnimatedMenu>
-                      <Link
-                        className="p-1"
-                        href={navSocial.href}
-                        title={navSocial.label}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`navigate to ${navSocial.label}`}
-                      >
-                        {navSocial.label}
-                      </Link>
-                    </CloseAnimatedMenu>
-                  </AnimatedMenuItem>
-                </div>
-              ))}
-            </div>
+                  <CloseAnimatedMenu>
+                    <Link
+                      className="text-2xl font-medium p-2"
+                      href={navLink.href}
+                      title={navLink.label}
+                      aria-label={`navigate to ${navLink.label}`}
+                    >
+                      {navLink.label}
+                    </Link>
+                  </CloseAnimatedMenu>
+                </AnimatedMenuItem>
+              </div>
+            ))}
           </div>
-        </AnimatedMenuList>
-      </AnimatedMenu>
-    </header>
+          <div className="flex gap-3 *:transition-blur *:duration-200 [&:hover>*]:blur-[2px] [&>*:hover]:blur-none">
+            {nav_socials.map((navSocial, i) => (
+              <div className="overflow-hidden text-primary" key={navSocial.id}>
+                <AnimatedMenuItem
+                  order={i + nav_links.length}
+                  variants={menuItemVariants}
+                >
+                  <CloseAnimatedMenu>
+                    <Link
+                      className="p-1"
+                      href={navSocial.href}
+                      title={navSocial.label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`navigate to ${navSocial.label}`}
+                    >
+                      {navSocial.label}
+                    </Link>
+                  </CloseAnimatedMenu>
+                </AnimatedMenuItem>
+              </div>
+            ))}
+          </div>
+        </div>
+      </AnimatedMenuList>
+    </AnimatedMenu>
+  );
+};
+
+const NavDesktop = () => {
+  return (
+    <nav className="flex border border-border/50 bg-card/50 backdrop-blur-xs gap-4 px-6 rounded-4xl items-center justify-between *:transition-opacity *:duration-200 [&:hover>*]:blur-[2px] [&>*:hover]:blur-none">
+      {nav_links.map((navLink) => (
+        <Link
+          key={navLink.id}
+          className="font-medium  p-2"
+          href={navLink.href}
+          title={navLink.label}
+          aria-label={`navigate to ${navLink.label}`}
+        >
+          {navLink.label}
+        </Link>
+      ))}
+    </nav>
+  );
+};
+export function Header() {
+  const isMobile = useIsMobile(920);
+  const { isHidden, setIsHidden } = useToggleOnScroll();
+  const showHeader = () => setIsHidden(false);
+  return (
+    <motion.header
+      className=" flex justify-between px-16 h-14 fixed z-999 top-2 left-0 w-full"
+      animate={isHidden ? { y: "-100%" } : { y: "0%" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: "0%" }}
+      onFocusCapture={showHeader}
+    >
+      <HeaderLogo className="basis-1/2 ">
+        <Logo className="w-20 backdrop-blur-xs" />
+      </HeaderLogo>
+      {isMobile ? <NavMobile /> : <NavDesktop />}
+    </motion.header>
   );
 }

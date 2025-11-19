@@ -18,7 +18,7 @@ const features_cards = [
     description:
       "Get personalized coverage recommendations in seconds. Our system analyzes your household size, health needs, and budget to match you with the most cost-effective plan — no confusing forms or sales pressure. Just clear options that fit your life.",
     imageUrl:
-      "https://images.pexels.com/photos/8441775/pexels-photo-8441775.jpeg",
+      "https://images.pexels.com/photos/7948060/pexels-photo-7948060.jpeg",
   },
   {
     id: "feature-support-2",
@@ -98,8 +98,8 @@ export function Features() {
   });
   return (
     <section ref={scrollRef} className="relative  py-12 px-8 ">
-      <div className="grid md:grid-cols-2 md:grid-rows-1 gap-8 ">
-        <div className="space-y-4 ">
+      <div className="grid md:grid-cols-2 md:grid-rows-1  gap-8 ">
+        <div className="space-y-4 relative ">
           {features_cards.map((feature) => (
             <div
               key={feature.id}
@@ -107,7 +107,7 @@ export function Features() {
             >
               <div className="flex items-start space-x-4">
                 <div className="p-1">
-                  <CheckIcon className="size-6 text-muted" />
+                  <CheckIcon className="size-6 text-primary" />
                 </div>
                 <div className="space-y-3">
                   <h3 className="font-semibold text-3xl">{feature.title}</h3>
@@ -120,7 +120,7 @@ export function Features() {
           ))}
         </div>
 
-        <div className="sticky top-0 right-0 w-full h-screen place-content-center">
+        <div className="sticky top-0 right-0 w-full md:h-screen place-content-center">
           <div className="w-full aspect-video p-2 bg-linear-120 from-muted-foreground/30 to-muted/40 bg-no-repeat border border-foreground/10 rounded-3xl shadow-[inset_0_.450581px_#ffffff4d,0_0_36.0465px_#ffffff0f]">
             <div className="size-full border-16 border-stone-800 ring ring-black rounded-[19px] relative">
               {features_cards.map((feature, index) => {

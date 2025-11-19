@@ -9,7 +9,7 @@ function HeroColImage() {
   const fadeLeft = ANIMATION_VARIANTS["left"];
   const fadeRight = ANIMATION_VARIANTS["right"];
   return (
-    <div className="relative  p-6 pt-16 flex gap-6 flex-wrap w-full min-h-96 h-full overflow-hidden">
+    <div className="relative overflow-hidden min-h-[580px] w-full p-6 space-y-10 flex flex-col justify-end">
       <Image
         src="/hero-image.jpg"
         alt="woman looking at carecover website"
@@ -20,7 +20,7 @@ function HeroColImage() {
         quality={85}
       />
       <motion.div
-        className="self-center md:self-start ml-auto"
+        className=" place-self-end"
         variants={fadeRight}
         initial="hidden"
         whileInView="visible"
@@ -38,7 +38,6 @@ function HeroColImage() {
         />
       </motion.div>
       <motion.div
-        className="self-end justify-self-end"
         variants={fadeLeft}
         initial="hidden"
         whileInView="visible"
@@ -68,13 +67,13 @@ function HeroCard({
   description: string;
 }) {
   return (
-    <div className="w-2xs space-y-4 p-4 border border-primary/10 text-white bg-muted/20 shadow rounded-lg overflow-hidden backdrop-blur-xs">
+    <div className="w-fit space-y-2 p-4 border border-border/15 text-white bg-muted/20 shadow rounded-lg overflow-hidden backdrop-blur-xs">
       <div className="flex items-center gap-4">
         <h2 className="text-xl font-medium">{title}</h2>
         <h3 className="text-lg font-medium">{heading}</h3>
       </div>
 
-      <p className="text-sm max-w-[32ch]">{description}</p>
+      <p className="text-sm text-muted max-w-[32ch]">{description}</p>
     </div>
   );
 }
@@ -82,7 +81,7 @@ function HeroColText() {
   const variants = ANIMATION_VARIANTS["blur"];
   return (
     <motion.div
-      className="flex flex-col items-start justify-center space-y-4 pt-20 pb-8 px-8 md:px-12 lg:px-16"
+      className="flex flex-col items-start justify-center space-y-4 py-18 px-8 md:px-12 lg:px-16"
       initial="hidden"
       whileInView={"visible"}
       viewport={{ once: true }}
@@ -100,7 +99,7 @@ function HeroColText() {
           human.
         </motion.p>
 
-        <motion.div variants={variants} className="flex gap-2">
+        <motion.div variants={variants} className="flex flex-wrap gap-2">
           <Button size="lg">
             Get a free quote <ArrowRightIcon className="size-4" />
           </Button>

@@ -97,7 +97,7 @@ export function Testimonials() {
       <SectionText>
         <SectionTextTitle>Testimonials / Case Studies</SectionTextTitle>
         <SectionTextHeading>Real people. Real relief</SectionTextHeading>
-        <SectionTextLead className="mt-4 text-sm text-muted max-w-[39ch] mx-auto">
+        <SectionTextLead>
           Our team of experts has helped them all achieve the peace of mind they
           deserve.
         </SectionTextLead>

@@ -59,7 +59,10 @@ export function SectionTextLead({ className, ...props }: HTMLMotionProps<"p">) {
   const variants = ANIMATION_VARIANTS["blur"];
   return (
     <motion.p
-      className={cn("mt-4 text-sm text-muted max-w-[45ch] mx-auto", className)}
+      className={cn(
+        "mt-4 text-sm text-muted-foreground max-w-[45ch] mx-auto",
+        className
+      )}
       {...props}
       variants={variants}
     />

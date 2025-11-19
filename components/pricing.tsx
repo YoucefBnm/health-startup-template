@@ -172,7 +172,7 @@ export function PricingValue({
         className
       )}
     >
-      <span className="text-muted text-sm font-normal tracking-normal">
+      <span className="text-muted-foreground text-sm font-normal tracking-normal">
         /{interval === "monthly" ? "per month" : "per year"}
       </span>
     </Price>

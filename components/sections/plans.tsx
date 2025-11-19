@@ -103,8 +103,8 @@ export function Plans() {
           Flexible healthcare coverage that grows with your needs
         </SectionTextLead>
       </SectionText>
-      <Pricing className="space-y-4">
-        <div className="mt-6 flex items-center justify-center gap-2">
+      <Pricing className="space-y-8">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <PricingIntervalSwitch />
           <Label className="text-muted-foreground">Billed annually</Label>
           <Badge className="border-primary text-primary" variant={"outline"}>
@@ -114,33 +114,38 @@ export function Plans() {
         <div className="flex flex-wrap gap-4 justify-center items-end">
           {PLAN_CONFIGS.map((plan) => {
             return (
-              <PricingCard className="md:flex-1 max-w-md rounded" key={plan.id}>
-                <PricingPackage className="flex-col space-y-2 items-start ">
-                  <div className="w-full flex gap-4 items-center justify-between">
-                    <h3 className="text-xl font-semibold">{plan.name}</h3>
-                    {plan.featured && (
-                      <Badge className="rounded-full text-background">
-                        Most Popular
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {plan.description}
-                  </p>
-                </PricingPackage>
+              <PricingCard
+                className="md:flex-1 p-0 max-w-md rounded"
+                key={plan.id}
+              >
+                <div className="p-6 space-y-4 border-b border-b-border/20 ">
+                  <PricingPackage className="flex-col space-y-2 items-start ">
+                    <div className="w-full flex gap-4 items-center justify-between">
+                      <h3 className="text-xl font-semibold">{plan.name}</h3>
+                      {plan.featured && (
+                        <Badge className="rounded-full text-background">
+                          Most Popular
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {plan.description}
+                    </p>
+                  </PricingPackage>
 
-                <PricingValue
-                  yearlyValue={plan.pricing.yearly}
-                  monthlyValue={plan.pricing.monthly}
-                  className="font-semibold text-2xl "
-                />
-                <div className="border-b border-b-border/20 pb-6">
-                  <Button size="sm" variant={"outline"}>
-                    Get Started
-                    <ArrowUpRightIcon className="size-4" />
-                  </Button>
+                  <PricingValue
+                    yearlyValue={plan.pricing.yearly}
+                    monthlyValue={plan.pricing.monthly}
+                    className="font-semibold text-2xl "
+                  />
+                  <div>
+                    <Button size="sm" variant={"outline"}>
+                      Get Started
+                      <ArrowUpRightIcon className="size-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex flex-col items-start gap-2">
+                <div className="flex flex-col items-start gap-2 pb-8 px-6">
                   {plan.includesPrevious && (
                     <PricingIncludesPrevious className="text-sm text-muted-foreground">
                       Everything in previous
