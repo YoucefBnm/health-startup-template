@@ -169,7 +169,7 @@ const NavDesktop = () => {
       {nav_links.map((navLink) => (
         <Link
           key={navLink.id}
-          className="font-medium  p-2"
+          className="font-medium text-sm p-2"
           href={navLink.href}
           title={navLink.label}
           aria-label={`navigate to ${navLink.label}`}

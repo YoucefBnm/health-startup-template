@@ -17,7 +17,6 @@ function HeroColImage() {
         sizes="(max-width: 768px) 100vw, 50vw"
         className="absolute inset-0 object-cover"
         priority
-        quality={85}
       />
       <motion.div
         className=" place-self-end"

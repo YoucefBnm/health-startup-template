@@ -83,9 +83,11 @@ function FeatureImage({
     >
       <Image
         fill
+        sizes="(max-width: 768px) 100vw, 50vw"
         alt="carecover feature"
         src={imageUrl}
         className="size-full object-cover"
+        priority
       />
     </motion.div>
   );
